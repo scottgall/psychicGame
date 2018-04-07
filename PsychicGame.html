@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>The Psychic Game</title>
+</head>
+
+<body onload="newGame()">
+   
+    <h1>The Psychic Game</h1>
+    <p>Guess what letter I'm thinking of by clicking any letter a-z...</p>
+    <p>Wins: <a id="wins">0</a></p>
+    <p>Losses: <a id="losses">0</a></p>
+    <p>Guesses Left: <a id="left">10</a></p>
+    <p>Guesses Made: <a id="made"></a></p>
+  
+<script type="text/javascript">
+
+    var computerGuess;
+    var computerGuessOptions = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+
+    function newGame() {
+        guessesLeft = 10;
+        guessesMade = [];
+        computerGuess = computerGuessOptions[Math.floor(Math.random() * computerGuessOptions.length)];  
+        console.log("Mystery number: " + computerGuess);     
+    }
+
+    var wins = 0;
+    var losses = 0;
+    var guessesLeft = 10;
+    var guessesMade = [];
+
+    document.onkeyup = function(event) {
+
+        var userGuess = event.key;
+        var x = computerGuessOptions.indexOf(userGuess);
+        var y = computerGuessOptions.indexOf(computerGuess);
+        var z = guessesMade.indexOf(userGuess);
+
+        if (x < 0) {
+            alert("click on a letter a-z");
+        } else if (z > -1) {
+            alert("you already guessed that letter");
+        } else {
+            if (userGuess == computerGuess) {
+                wins++;
+                newGame();
+            } else if (guessesLeft > 1) {
+                guessesLeft--;
+                guessesMade.push(userGuess);
+            } else {
+                losses++;
+                newGame();
+            }
+        }
+     
+    document.getElementById("wins").innerHTML = wins;
+    document.getElementById("losses").innerHTML = losses;
+    document.getElementById("left").innerHTML = guessesLeft;
+    document.getElementById("made").innerHTML = guessesMade;
+
+    };
+  </script>
+
+</body>
+
+</html>
+                
